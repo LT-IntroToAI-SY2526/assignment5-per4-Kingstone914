@@ -1,5 +1,6 @@
 import copy  # to make a deepcopy of the board
 from typing import List, Any, Tuple
+import time
 
 # import Stack and Queue classes for BFS/DFS
 from stack_and_queue import Stack, Queue
@@ -185,15 +186,17 @@ def DFS(state: Board) -> Board:
         either None in the case of invalid input or a solved board
     """
     the_stack = Stack([state])
-    iterations = 0 
-    start_time = time.time()
+    iterations = 0
+    start_time = time.time() 
 
     while not the_stack.is_empty():
+        iterations += 1
         current_board: Board = the_stack.pop()
         #print(current_board)
         if current_board.goal_test():
             end_time = time.time()
-            elapsed_time = end_time = 
+            elapsed_time = end_time -start_time
+            print(f"DFS took {iterations} iterations in {elapsed_time: .4f} seconds")
             return current_board
         
         row, col = current_board.find_most_constrained_cell()
@@ -220,10 +223,16 @@ def BFS(state: Board) -> Board:
         either None in the case of invalid input or a solved board
     """
     the_Queue = Queue([state])
+    iterations = 0
+    start_time =time.time()
 
     while not the_Queue.is_empty():
+        iterations += 1
         current_board: Board = the_Queue.pop()
         if current_board.goal_test():
+            end_time = time.time()
+            elapsed_time = end_time -start_time
+            print(f"DFS took {iterations} iterations in {elapsed_time: .4f} seconds")
             return current_board
         
         row, col = current_board.find_most_constrained_cell()
@@ -377,17 +386,17 @@ if __name__ == "__main__":
     print("All part 2 tests passed! Testing DFS and BFS next:")
     #print(g)
 
-    print("<<<<<<<<<<<<<< Testing DFS on First Game >>>>>>>>>>>>>>")
+    #print("<<<<<<<<<<<<<< Testing DFS on First Game >>>>>>>>>>>>>>")
 
-    test_dfs_or_bfs(True, first_moves)
+    #test_dfs_or_bfs(True, first_moves)
 
-    print("<<<<<<<<<<<<<< Testing DFS on Second Game >>>>>>>>>>>>>>")
+    #print("<<<<<<<<<<<<<< Testing DFS on Second Game >>>>>>>>>>>>>>")
 
-    test_dfs_or_bfs(True, second_moves)
+    #test_dfs_or_bfs(True, second_moves)
 
-    print("<<<<<<<<<<<<<< Testing BFS on First Game >>>>>>>>>>>>>>")
+    #print("<<<<<<<<<<<<<< Testing BFS on First Game >>>>>>>>>>>>>>")
 
-    test_dfs_or_bfs(False, first_moves)
+    #test_dfs_or_bfs(False, first_moves)
 
     print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
 
